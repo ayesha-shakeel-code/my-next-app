@@ -1,13 +1,7 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import ProductCard from './components/ProductCard'
 import { revalidateTag } from "next/cache";
 
-export interface Product {
-  id?: number;
-  name: string;
-  price: string;
-}
 
 export default async function Home() {
   const res = await fetch("https://6579983d1acd268f9af9759b.mockapi.io/products", {
@@ -16,16 +10,16 @@ export default async function Home() {
       tags: ["products"]
     }
   })
-  const products: Product[] = await res.json();
+  const products = await res.json();
 
-  const addProductToDatabase = async (e: FormData) => {
+  const addProductToDatabase = async (e) => {
     "use server";
     const name = e.get("name")?.toString();
     const price = e.get("price")?.toString();
 
     if(!name || !price) return;
 
-    const newProduct: Product = {
+    const newProduct = {
       name: name,
       price: price,
     };
