@@ -6,9 +6,7 @@ import { revalidateTag } from "next/cache";
 export default async function Home() {
   const res = await fetch("https://6579983d1acd268f9af9759b.mockapi.io/products", {
     cache: 'no-cache',
-    next: {
-      tags: ["products"]
-    }
+    next: { tags: ["products"] }
   })
   const products = await res.json();
 
@@ -39,6 +37,7 @@ export default async function Home() {
    <main>
     <h1>Hello World</h1>
     <Link href="/users">Users</Link>
+    <ProductCard />
     <form action={addProductToDatabase} className="flex flex-col gap-5 max-w-xl p-5">
       <input 
         name = "name"
@@ -50,12 +49,12 @@ export default async function Home() {
         placeholder = "Enter product price"
         className="border border-black rounded-md"
       />
-      <button className="border bg-black text-white rounded-md">
+      <button className="btn btn-primary">
         Add Product
       </button>
     </form>
 
-    <h2>List of Products</h2>
+    <h2 className = "font-bold">List of Products</h2>
     <div className = "flex flex-col gap-5">
       {products.map(product => 
         <div key={product.id}>
